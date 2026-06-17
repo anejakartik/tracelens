@@ -2,6 +2,16 @@
 
 ## Shipping log (newest on top)
 
+### 2026-06-17 — Alpha MVP: SDK + collector + dashboard
+- [x] Working `@tracelens.traced` decorator — captures latency, function name, tokens, cost, errors; fail-soft async POST to collector
+- [x] OpenAI + Anthropic token usage auto-detected from response shape
+- [x] Per-model cost calculation via static pricing table (OpenAI + Anthropic SKUs)
+- [x] FastAPI collector — `POST /traces`, `GET /traces` with model + window + only_errors filters, `GET /traces/{id}`, `GET /stats` with p50/p95/p99 + per-model breakdown
+- [x] SQLite storage by default; pluggable via `TRACELENS_DB_URL`
+- [x] Static dashboard at `/` — p50/p95 latency, total cost, error rate, model breakdown table, recent traces with status pills, window switcher, 5s auto-refresh
+- [x] `examples/quickstart.py` posts 25 synthetic traces without a real LLM call
+- Notes: dashboard is server-rendered HTML (no Node build step) for fast iteration; can swap to Next.js when needed.
+
 ### 2026-06-15 — Scaffold
 - [x] Repo + doc set + CI workflow
 - [x] Stub SDK with intended API
@@ -11,13 +21,11 @@
 
 ## Short-term — next 4 weeks
 
-- [ ] **P0 / Working `@traced` decorator** — capture latency, model, prompt, completion, tokens *(est. 1 day · drives launch post)*
-- [ ] **P0 / FastAPI collector** — `POST /traces` + `GET /traces` with filters
-- [ ] **P0 / Storage** — SQLite local; ClickHouse Cloud for hosted demo
-- [ ] **P0 / Dashboard MVP** — Next.js, time-series chart (latency p99), model breakdown
+- [ ] **P0 / ClickHouse adapter** — drop-in via `TRACELENS_DB_URL`; needed for hosted demo
 - [ ] **P0 / Deploy to Fly.io + Cloudflare Pages** — live `tracelens.kartikaneja.com`
-- [ ] **P1 / Cost calculation** — per-model token-to-cost ledger (lookup from OpenAI/Anthropic pricing)
+- [ ] **P0 / Time-series chart** — replace the summary stat tile with an inline sparkline for p95 latency
 - [ ] **P1 / OpenTelemetry compatibility** — accept OTel-format LLM spans
+- [ ] **P1 / evalstack integration** — link a trace → its judge results
 - [ ] **P2 / Sample replay** — public dashboard with synthetic + replayed real traffic
 
 ## Medium-term — months 2–3

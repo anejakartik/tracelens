@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>tracelens — LLM observability</title>
+    <style>
+      :root {
+        --bg: #0b0f17;
+        --surface: #11161f;
+        --surface-2: #1a212e;
+        --border: #232b3a;
+        --ink: #e4e7ec;
+        --muted: #8b94a6;
+        --accent: #7dd3fc;
+        --good: #34d399;
+        --warn: #fbbf24;
+        --bad: #f87171;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+      header { border-bottom: 1px solid var(--border); background: var(--surface); }
+      header .wrap { max-width: 1080px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+      header .brand { display: flex; align-items: center; gap: 8px; font-weight: 600; letter-spacing: -0.01em; }
+      header .tag { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; background: var(--surface-2); color: var(--muted); padding: 2px 6px; border-radius: 4px; }
+      header a, header select { font-size: 13px; color: var(--muted); text-decoration: none; }
+      header select { background: var(--surface-2); border: 1px solid var(--border); color: var(--ink); padding: 6px 10px; border-radius: 6px; }
+      main { max-width: 1080px; margin: 0 auto; padding: 24px; }
+      .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 20px; }
+      @media (max-width: 720px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+      .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+      .stat .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+      .stat .value { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 22px; margin-top: 6px; letter-spacing: -0.01em; }
+      .stat .sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+      .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 16px; overflow: hidden; }
+      .panel > header { background: var(--surface-2); padding: 10px 16px; border-bottom: 1px solid var(--border); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); display: flex; justify-content: space-between; }
+      .panel > header span:last-child { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; text-transform: none; letter-spacing: 0; color: var(--ink); font-size: 12px; }
+      table { width: 100%; border-collapse: collapse; font-size: 13px; }
+      th { text-align: left; padding: 9px 16px; background: var(--surface-2); color: var(--muted); font-weight: 500; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; }
+      td { padding: 9px 16px; border-top: 1px solid var(--border); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      td.text { font-family: ui-sans-serif, system-ui, sans-serif; }
+      td.right { text-align: right; }
+      tr:hover td { background: var(--surface-2); }
+      .pill { display: inline-block; padding: 1px 6px; border-radius: 999px; font-size: 11px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .pill.good { background: rgba(52,211,153,0.12); color: var(--good); }
+      .pill.warn { background: rgba(251,191,36,0.12); color: var(--warn); }
+      .pill.bad { background: rgba(248,113,113,0.12); color: var(--bad); }
+      .empty { padding: 40px; text-align: center; color: var(--muted); font-size: 14px; }
+      .empty pre { background: var(--surface-2); padding: 12px 14px; border-radius: 8px; display: inline-block; text-align: left; margin-top: 12px; font-size: 12px; }
+      details summary { cursor: pointer; color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <div class="brand">
+          tracelens
+          <span class="tag">alpha</span>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center;">
+          <label style="font-size:12px; color: var(--muted);">Window:</label>
+          <select id="window">
+            <option value="60">last 1h</option>
+            <option value="360" selected>last 6h</option>
+            <option value="1440">last 24h</option>
+            <option value="10080">last 7d</option>
+          </select>
+          <a href="https://github.com/anejakartik/tracelens" target="_blank" rel="noreferrer">GitHub ↗</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="grid">
+        <div class="stat"><div class="label">Traces</div><div class="value" id="s-count">—</div><div class="sub">in window</div></div>
+        <div class="stat"><div class="label">P50</div><div class="value" id="s-p50">—</div><div class="sub">ms</div></div>
+        <div class="stat"><div class="label">P95</div><div class="value" id="s-p95">—</div><div class="sub">ms</div></div>
+        <div class="stat"><div class="label">Total cost</div><div class="value" id="s-cost">—</div><div class="sub">USD</div></div>
+        <div class="stat"><div class="label">Errors</div><div class="value" id="s-err">—</div><div class="sub">rate</div></div>
+      </section>
+
+      <section class="panel">
+        <header><span>By model</span><span id="model-window">—</span></header>
+        <table>
+          <thead><tr><th>Model</th><th class="right">Count</th><th class="right">Mean ms</th><th class="right">Tokens</th><th class="right">Cost USD</th><th class="right">Error rate</th></tr></thead>
+          <tbody id="by-model"></tbody>
+        </table>
+      </section>
+
+      <section class="panel">
+        <header><span>Recent traces</span><span id="trace-count">—</span></header>
+        <table>
+          <thead><tr><th>When</th><th>Model</th><th>Function</th><th class="right">ms</th><th class="right">Tokens</th><th class="right">Cost</th><th>Status</th></tr></thead>
+          <tbody id="recent-traces"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <script>
+      const $window = document.getElementById('window');
+      $window.addEventListener('change', () => refresh());
+
+      async function fetchJson(path) {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error(`${path} → ${res.status}`);
+        return res.json();
+      }
+
+      function fmtMs(n) { return n == null ? '—' : (n >= 1000 ? (n/1000).toFixed(2) + 's' : Math.round(n) + 'ms'); }
+      function fmtCost(n) { return n == null ? '—' : '$' + Number(n).toFixed(4); }
+      function fmtTokens(n) { return n == null ? '—' : Number(n).toLocaleString(); }
+      function fmtPercent(n) { return n == null ? '—' : (Number(n) * 100).toFixed(1) + '%'; }
+      function relative(iso) {
+        const d = new Date(iso);
+        if (Number.isNaN(d.getTime())) return iso;
+        const s = Math.floor((Date.now() - d.getTime()) / 1000);
+        if (s < 60) return s + 's ago';
+        if (s < 3600) return Math.floor(s/60) + 'm ago';
+        if (s < 86400) return Math.floor(s/3600) + 'h ago';
+        return Math.floor(s/86400) + 'd ago';
+      }
+      function escapeHtml(s) {
+        return String(s ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+      }
+
+      async function refresh() {
+        const window = $window.value;
+        document.getElementById('model-window').textContent = `window ${window}m`;
+        try {
+          const [stats, traces] = await Promise.all([
+            fetchJson(`/stats?window_minutes=${window}`),
+            fetchJson(`/traces?window_minutes=${window}&limit=100`),
+          ]);
+          renderStats(stats);
+          renderModels(stats.by_model || []);
+          renderTraces(traces);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      function renderStats(stats) {
+        document.getElementById('s-count').textContent = stats.count;
+        document.getElementById('s-p50').textContent = fmtMs(stats.p50_ms);
+        document.getElementById('s-p95').textContent = fmtMs(stats.p95_ms);
+        document.getElementById('s-cost').textContent = fmtCost(stats.total_cost_usd);
+        document.getElementById('s-err').textContent = fmtPercent(stats.error_rate);
+      }
+
+      function renderModels(rows) {
+        const tbody = document.getElementById('by-model');
+        if (!rows.length) { tbody.innerHTML = '<tr><td colspan="6" class="text empty">No traces in window.</td></tr>'; return; }
+        tbody.innerHTML = rows.map((r) => `
+          <tr>
+            <td>${escapeHtml(r.model)}</td>
+            <td class="right">${r.count.toLocaleString()}</td>
+            <td class="right">${fmtMs(r.mean_ms)}</td>
+            <td class="right">${fmtTokens(r.total_tokens)}</td>
+            <td class="right">${fmtCost(r.total_cost_usd)}</td>
+            <td class="right">${fmtPercent(r.error_rate)}</td>
+          </tr>
+        `).join('');
+      }
+
+      function renderTraces(traces) {
+        const tbody = document.getElementById('recent-traces');
+        document.getElementById('trace-count').textContent = `${traces.length} shown`;
+        if (!traces.length) {
+          tbody.innerHTML = `
+            <tr><td colspan="7" class="text empty">
+              No traces yet.
+              <pre>pip install -e ./sdk
+python examples/quickstart.py</pre>
+            </td></tr>`;
+          return;
+        }
+        tbody.innerHTML = traces.map((t) => {
+          const status = t.error
+            ? `<span class="pill bad">error</span>`
+            : t.latency_ms > 3000
+              ? `<span class="pill warn">slow</span>`
+              : `<span class="pill good">ok</span>`;
+          return `
+            <tr>
+              <td class="text">${relative(t.timestamp)}</td>
+              <td>${escapeHtml(t.model)}</td>
+              <td>${escapeHtml(t.function ?? '—')}</td>
+              <td class="right">${fmtMs(t.latency_ms)}</td>
+              <td class="right">${fmtTokens(t.total_tokens)}</td>
+              <td class="right">${fmtCost(t.cost_usd)}</td>
+              <td>${status}</td>
+            </tr>`;
+        }).join('');
+      }
+
+      refresh();
+      setInterval(refresh, 5000);
+    </script>
+  </body>
+</html>

@@ -3,7 +3,7 @@
 > Datadog for LLM apps — for indie devs. Drop-in observability with one decorator.
 
 **Live demo:** [tracelens.kartikaneja.com](https://tracelens.kartikaneja.com) *(coming soon)*
-**Status:** scaffold · last shipped 2026-06-15
+**Status:** alpha · last shipped 2026-06-17
 **Built by:** [Kartik Aneja](https://kartikaneja.com) — AI/ML Platform Engineer
 
 [![CI](https://github.com/anejakartik/tracelens/actions/workflows/ci.yml/badge.svg)](https://github.com/anejakartik/tracelens/actions/workflows/ci.yml)
@@ -21,40 +21,53 @@ See [PRODUCT.md](./PRODUCT.md) for the full writeup. TL;DR:
 - **Pain:** No visibility into latency p99, cost per user, hallucination patterns
 - **Why now:** Every LLM app needs this; Datadog/Honeycomb are heavyweight + paid; LangSmith is LangChain-only
 
-## What works today
+## What works today (alpha MVP)
 
-- *(scaffolding — first feature lands week of 2026-06-15)*
-- Repo + doc structure
-- CI workflow
-- Stub SDK with intended API (`@traced` decorator, `tracelens.log()`)
+- **`@tracelens.traced` decorator** — captures latency, tokens, cost, errors; fail-soft (collector down → wrapped function still returns)
+- **OpenAI + Anthropic auto-detection** — pulls token usage from `response.usage.{prompt,completion,total}_tokens` (OpenAI) or `response.usage.{input,output}_tokens` (Anthropic)
+- **Per-model cost calculation** — static pricing table for OpenAI + Anthropic SKUs (gpt-4o, gpt-4o-mini, o1, claude-3.5-sonnet, claude-3.5-haiku, claude-3-opus, …)
+- **FastAPI collector** — `POST /traces` ingest, `GET /traces` with model/window/error filters, `GET /traces/{id}`, `GET /stats` with p50/p95/p99 + per-model breakdown
+- **SQLite storage** — zero-config local; swap to ClickHouse via `TRACELENS_DB_URL`
+- **Static dashboard at `/`** — p50/p95 latency, total cost, error rate, per-model table, recent trace list with status pills
+- **No-key quickstart** — `examples/quickstart.py` posts 25 synthetic traces so you can see the dashboard light up without spending tokens
 
-## Try it (when shipped)
+## Try it (60 seconds, local)
 
 ```bash
-pip install tracelens
-export TRACELENS_ENDPOINT=https://tracelens.kartikaneja.com
+git clone https://github.com/anejakartik/tracelens.git
+cd tracelens
+pip install -e ./sdk
+docker compose up -d
+python examples/quickstart.py
+open http://localhost:8000
 ```
+
+Real usage:
 
 ```python
 import tracelens
 import openai
 
 tracelens.configure(endpoint="http://localhost:8000")
+client = openai.OpenAI()
 
-@tracelens.traced(model="openai/gpt-4o-mini")
+@tracelens.traced(model="gpt-4o-mini")
 def ask(question: str) -> str:
-    return openai.chat.completions.create(...).choices[0].message.content
-```
+    return client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": question}],
+    ).choices[0].message.content
 
-Then check `http://localhost:8000/dashboard` for latency / token / cost charts.
+ask("Summarize the last commit.")  # latency + tokens + cost flow to the collector
+```
 
 ## Architecture
 
-See [docs/architecture.md](./docs/architecture.md). Stack: Python SDK · FastAPI collector · ClickHouse Cloud (free tier) · Next.js dashboard · Cloudflare Pages + Fly.io.
+See [docs/architecture.md](./docs/architecture.md). Stack: Python SDK + FastAPI collector + SQLite (swap-in ClickHouse for the hosted demo). Dashboard is server-rendered HTML, no Node deps.
 
 ## What's next
 
-See [ROADMAP.md](./ROADMAP.md). Top items: working trace decorator, ingest endpoint, time-series dashboard.
+See [ROADMAP.md](./ROADMAP.md). Top items: ClickHouse adapter, public deploy (Fly.io + Cloudflare Pages), OpenTelemetry compatibility, evalstack integration (link traces → eval results), Slack alerts.
 
 ## Contributing
 
