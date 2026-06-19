@@ -2,6 +2,14 @@
 
 ## Shipping log (newest on top)
 
+### 2026-06-19 — ClickHouse storage adapter
+- [x] Storage protocol introduced (`server/storage/__init__.py`) with two implementations
+- [x] SQLAlchemy/SQLModel backend (default) handles `sqlite://` + `postgresql://` URLs
+- [x] ClickHouse backend (`clickhouse-driver`) handles `clickhouse://user:pass@host:9000/db` URLs — MergeTree engine, monthly partitioning, `ORDER BY (model, timestamp)`, 90-day TTL
+- [x] Auto-detect at startup via TRACELENS_DB_URL; factory picks the right impl
+- [x] Optional `clickhouse` Compose profile spins up a CH server with HTTP (8123) + native (9000) ports exposed
+- [x] Both backends verified end-to-end via quickstart.py (25 synthetic traces → identical /stats output)
+
 ### 2026-06-17 — Alpha MVP: SDK + collector + dashboard
 - [x] Working `@tracelens.traced` decorator — captures latency, function name, tokens, cost, errors; fail-soft async POST to collector
 - [x] OpenAI + Anthropic token usage auto-detected from response shape
@@ -21,7 +29,7 @@
 
 ## Short-term — next 4 weeks
 
-- [ ] **P0 / ClickHouse adapter** — drop-in via `TRACELENS_DB_URL`; needed for hosted demo
+- [ ] **P0 / ClickHouse-specific aggregations** — push the /stats query down into ClickHouse SQL (currently still pulls rows to Python); needed to hit the "scales to 100M traces" claim
 - [ ] **P0 / Deploy to Fly.io + Cloudflare Pages** — live `tracelens.kartikaneja.com`
 - [ ] **P0 / Time-series chart** — replace the summary stat tile with an inline sparkline for p95 latency
 - [ ] **P1 / OpenTelemetry compatibility** — accept OTel-format LLM spans

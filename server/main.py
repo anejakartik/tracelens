@@ -6,11 +6,14 @@ Endpoints:
   GET  /traces/{id}     — single trace detail
   GET  /stats           — rolled-up p50/p95/p99/cost/error-rate, with per-model breakdown
   GET  /                — static HTML dashboard
+
+Storage backend is pluggable — see server/storage/. Choose with TRACELENS_DB_URL:
+  sqlite:///./tracelens.db   (default — local dev)
+  clickhouse://default:@clickhouse:9000/tracelens   (hosted demo)
 """
 
 from __future__ import annotations
 
-import json
 import math
 import os
 import sys
@@ -23,41 +26,16 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 # Make `sdk` importable for shared models.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "sdk"))
 from tracelens.models import ModelBreakdown, Trace, TraceStats  # noqa: E402
 
+from storage import make_storage  # noqa: E402
+
 
 DATABASE_URL = os.environ.get("TRACELENS_DB_URL", "sqlite:///./tracelens.db")
-engine = create_engine(
-    DATABASE_URL,
-    echo=False,
-    connect_args={"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {},
-)
-
-
-# ---- DB row ---------------------------------------------------------------
-
-
-class TraceRow(SQLModel, table=True):
-    id: str = Field(primary_key=True)
-    timestamp: datetime = Field(index=True)
-    model: str = Field(index=True)
-    function: str | None = None
-    latency_ms: float
-    prompt_tokens: int | None = None
-    completion_tokens: int | None = None
-    total_tokens: int | None = None
-    cost_usd: float | None = None
-    prompt: str | None = None
-    completion: str | None = None
-    error: str | None = None
-    metadata_json: str = Field(default="{}")
-
-
-# ---- App ------------------------------------------------------------------
+storage = make_storage(DATABASE_URL)
 
 
 app = FastAPI(
@@ -78,51 +56,15 @@ app.add_middleware(
 
 @app.on_event("startup")
 def _startup() -> None:
-    SQLModel.metadata.create_all(engine)
+    storage.init()
 
 
 @app.get("/health")
 def health() -> dict[str, Any]:
-    return {"ok": True, "db_url": DATABASE_URL.split("@")[-1]}
+    return {"ok": True, "db": storage.describe()}
 
 
 # ---- Helpers --------------------------------------------------------------
-
-
-def _trace_to_row(t: Trace) -> TraceRow:
-    return TraceRow(
-        id=str(t.id),
-        timestamp=t.timestamp,
-        model=t.model,
-        function=t.function,
-        latency_ms=t.latency_ms,
-        prompt_tokens=t.prompt_tokens,
-        completion_tokens=t.completion_tokens,
-        total_tokens=t.total_tokens,
-        cost_usd=t.cost_usd,
-        prompt=t.prompt,
-        completion=t.completion,
-        error=t.error,
-        metadata_json=json.dumps(t.metadata),
-    )
-
-
-def _row_to_trace(r: TraceRow) -> Trace:
-    return Trace(
-        id=UUID(r.id),
-        timestamp=r.timestamp.replace(tzinfo=timezone.utc) if r.timestamp.tzinfo is None else r.timestamp,
-        model=r.model,
-        function=r.function,
-        latency_ms=r.latency_ms,
-        prompt_tokens=r.prompt_tokens,
-        completion_tokens=r.completion_tokens,
-        total_tokens=r.total_tokens,
-        cost_usd=r.cost_usd,
-        prompt=r.prompt,
-        completion=r.completion,
-        error=r.error,
-        metadata=json.loads(r.metadata_json),
-    )
 
 
 def _percentile(values: list[float], p: float) -> float:
@@ -143,9 +85,7 @@ def _percentile(values: list[float], p: float) -> float:
 
 @app.post("/traces", response_model=Trace)
 def ingest_trace(trace: Trace) -> Trace:
-    with Session(engine) as s:
-        s.add(_trace_to_row(trace))
-        s.commit()
+    storage.insert_trace(trace)
     return trace
 
 
@@ -160,24 +100,20 @@ def list_traces(
     only_errors: bool = Query(default=False),
 ) -> list[Trace]:
     since = datetime.now(timezone.utc) - timedelta(minutes=window_minutes)
-    with Session(engine) as s:
-        stmt = select(TraceRow).where(TraceRow.timestamp >= since)
-        if model:
-            stmt = stmt.where(TraceRow.model == model)
-        if only_errors:
-            stmt = stmt.where(TraceRow.error.is_not(None))  # type: ignore[attr-defined]
-        stmt = stmt.order_by(TraceRow.timestamp.desc()).limit(limit)
-        rows = s.exec(stmt).all()
-        return [_row_to_trace(r) for r in rows]
+    return storage.list_traces(
+        since=since,
+        model=model,
+        only_errors=only_errors,
+        limit=limit,
+    )
 
 
 @app.get("/traces/{trace_id}", response_model=Trace)
 def get_trace(trace_id: UUID) -> Trace:
-    with Session(engine) as s:
-        row = s.get(TraceRow, str(trace_id))
-        if row is None:
-            raise HTTPException(404, "Trace not found")
-        return _row_to_trace(row)
+    trace = storage.get_trace(trace_id)
+    if trace is None:
+        raise HTTPException(404, "Trace not found")
+    return trace
 
 
 @app.get("/stats", response_model=TraceStats)
@@ -186,18 +122,14 @@ def stats(
     window_minutes: int = Query(default=60, le=10080),
 ) -> TraceStats:
     since = datetime.now(timezone.utc) - timedelta(minutes=window_minutes)
-    with Session(engine) as s:
-        stmt = select(TraceRow).where(TraceRow.timestamp >= since)
-        if model:
-            stmt = stmt.where(TraceRow.model == model)
-        rows = s.exec(stmt).all()
+    rows = storage.query_window(since=since, model=model)
 
     latencies = [r.latency_ms for r in rows]
     total_tokens = sum(r.total_tokens or 0 for r in rows)
     total_cost = round(sum(r.cost_usd or 0.0 for r in rows), 6)
     error_rate = (sum(1 for r in rows if r.error) / len(rows)) if rows else 0.0
 
-    by_model: dict[str, list[TraceRow]] = {}
+    by_model: dict[str, list[Trace]] = {}
     for r in rows:
         by_model.setdefault(r.model, []).append(r)
     breakdowns: list[ModelBreakdown] = []

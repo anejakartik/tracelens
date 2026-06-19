@@ -6,7 +6,7 @@ services:
     ports:
       - "${TRACELENS_PORT:-8000}:8000"
     environment:
-      - TRACELENS_DB_URL=sqlite:////app/data/tracelens.db
+      - TRACELENS_DB_URL=${TRACELENS_DB_URL:-sqlite:////app/data/tracelens.db}
       - TRACELENS_CORS_ORIGINS=${TRACELENS_CORS_ORIGINS:-*}
     volumes:
       - tracelens-data:/app/data
@@ -17,5 +17,32 @@ services:
       timeout: 5s
       retries: 3
 
+  # Optional ClickHouse backend. Enable with:
+  #   TRACELENS_DB_URL=clickhouse://default:@clickhouse:9000/tracelens \
+  #       docker compose --profile clickhouse up -d
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.8
+    environment:
+      CLICKHOUSE_DB: tracelens
+      CLICKHOUSE_USER: default
+      CLICKHOUSE_PASSWORD: ""
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
+    ports:
+      - "${TRACELENS_CLICKHOUSE_PORT:-8123}:8123"   # HTTP UI
+      - "${TRACELENS_CLICKHOUSE_NATIVE_PORT:-9000}:9000"  # native protocol
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+    profiles: ["clickhouse"]
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8123/ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
 volumes:
   tracelens-data:
+  clickhouse-data:
