@@ -79,8 +79,11 @@ def fake_chat(prompt: str, model: str, base_latency_s: float, base_completion_to
 
 
 def run() -> None:
-    tracelens.configure(endpoint="http://localhost:8000", print_local=True)
-    print("Posting 25 synthetic traces to http://localhost:8000 …")
+    import os
+
+    endpoint = os.environ.get("TRACELENS_ENDPOINT", "http://localhost:8000")
+    tracelens.configure(endpoint=endpoint, print_local=True)
+    print(f"Posting 25 synthetic traces to {endpoint} …")
     for _ in range(25):
         model, latency, ctokens = random.choice(MODELS)
         prompt = random.choice(PROMPTS)
@@ -94,8 +97,8 @@ def run() -> None:
         except Exception as exc:  # noqa: BLE001
             print(f"  → caught simulated error: {exc}")
     # Give the daemon threads a beat to flush.
-    time.sleep(1.0)
-    print("Done. Open http://localhost:8000 to see the dashboard.")
+    time.sleep(1.5)
+    print(f"Done. Open {endpoint} to see the dashboard.")
 
 
 if __name__ == "__main__":
