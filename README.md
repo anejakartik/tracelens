@@ -21,6 +21,12 @@ See [PRODUCT.md](./PRODUCT.md) for the full writeup. TL;DR:
 - **Pain:** No visibility into latency p99, cost per user, hallucination patterns
 - **Why now:** Every LLM app needs this; Datadog/Honeycomb are heavyweight + paid; LangSmith is LangChain-only
 
+## Demo
+
+![tracelens dashboard — p50/p95 latency, total cost, error rate, per-model breakdown, recent traces with status pills](./docs/screenshots/01-dashboard.png)
+
+`examples/quickstart.py` posts 25 synthetic traces across `gpt-4o`, `gpt-4o-mini`, `claude-3-5-sonnet`, and `claude-3-5-haiku`. The dashboard auto-refreshes every 5s and computes p50/p95/p99 latency, total cost from the embedded pricing table, error rate, and per-model breakdown — all without sending a single real LLM call.
+
 ## What works today (alpha MVP)
 
 - **`@tracelens.traced` decorator** — captures latency, tokens, cost, errors; fail-soft (collector down → wrapped function still returns)
