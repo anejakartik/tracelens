@@ -1,0 +1,126 @@
+# apekey-benchmark · 20 questions × 4 conditions
+tracelens endpoint: http://localhost:8002
+cache buster (appended as run-id to each user message): a53b783c
+
+=== baseline-gpt-4o-mini ===
+   1/20 ✓   1025ms  gpt-4o-mini-2024-07-18          q=How many customers do we have in total?
+   2/20 ✓    952ms  gpt-4o-mini-2024-07-18          q=What's the total revenue from paid orders?
+   3/20 ✓    611ms  gpt-4o-mini-2024-07-18          q=What's the average order amount across all complet
+   4/20 ✓    559ms  gpt-4o-mini-2024-07-18          q=How many subscriptions are currently active (ended
+   5/20 ✓    603ms  gpt-4o-mini-2024-07-18          q=How many distinct countries are our customers in?
+   6/20 ✓    545ms  gpt-4o-mini-2024-07-18          q=Count customers per plan.
+   7/20 ✓    892ms  gpt-4o-mini-2024-07-18          q=Sum total paid order amount by country.
+   8/20 ✓    589ms  gpt-4o-mini-2024-07-18          q=Count active subscriptions per plan.
+   9/20 ✓    680ms  gpt-4o-mini-2024-07-18          q=Count events by event_name.
+  10/20 ✓   1229ms  gpt-4o-mini-2024-07-18          q=Average MRR per plan among currently-active subscr
+  11/20 ?    910ms  gpt-4o-mini-2024-07-18          q=How many customers signed up in May 2026?
+  12/20 ✓    970ms  gpt-4o-mini-2024-07-18          q=What was our MRR by plan as of June 1, 2026?
+  13/20 ?    841ms  gpt-4o-mini-2024-07-18          q=How many orders were placed in the last 30 days (r
+  14/20 ✓    754ms  gpt-4o-mini-2024-07-18          q=Count events that occurred in June 2026.
+  15/20 ✓   1434ms  gpt-4o-mini-2024-07-18          q=Weekly active users in June 2026.
+  16/20 ✓   1276ms  gpt-4o-mini-2024-07-18          q=Top 5 customers by lifetime paid order amount, wit
+  17/20 ✓   1024ms  gpt-4o-mini-2024-07-18          q=For each country, the count of active subscription
+  18/20 ?   1016ms  gpt-4o-mini-2024-07-18          q=Customers who signed up in 2026 but have zero orde
+  19/20 ✓   1025ms  gpt-4o-mini-2024-07-18          q=For each plan, the median order amount (use percen
+  20/20 ✓    908ms  gpt-4o-mini-2024-07-18          q=Which plan has the highest churn rate? Return one 
+
+=== apekey-cost ===
+   1/20 ✓   1846ms  llama-3.1-8b-instant            q=How many customers do we have in total?
+   2/20 ✓   1510ms  llama-3.1-8b-instant            q=What's the total revenue from paid orders?
+   3/20 ✓   1546ms  llama-3.1-8b-instant            q=What's the average order amount across all complet
+   4/20 ✓   1471ms  llama-3.1-8b-instant            q=How many subscriptions are currently active (ended
+   5/20 ✓   1463ms  llama-3.1-8b-instant            q=How many distinct countries are our customers in?
+   6/20 ✓  62908ms  llama-3.1-8b-instant            q=Count customers per plan.
+   7/20 ✓   1915ms  llama-3.1-8b-instant            q=Sum total paid order amount by country.
+   8/20 ✓   1580ms  llama-3.1-8b-instant            q=Count active subscriptions per plan.
+   9/20 ✓   1467ms  llama-3.1-8b-instant            q=Count events by event_name.
+  10/20 ✓   1531ms  llama-3.1-8b-instant            q=Average MRR per plan among currently-active subscr
+  11/20 ✓  63119ms  llama-3.1-8b-instant            q=How many customers signed up in May 2026?
+  12/20 ✓   1644ms  llama-3.1-8b-instant            q=What was our MRR by plan as of June 1, 2026?
+  13/20 ?   1513ms  llama-3.1-8b-instant            q=How many orders were placed in the last 30 days (r
+  14/20 ✓   1636ms  llama-3.1-8b-instant            q=Count events that occurred in June 2026.
+  15/20 ✓   1591ms  llama-3.1-8b-instant            q=Weekly active users in June 2026.
+  16/20 ✓  63096ms  llama-3.1-8b-instant            q=Top 5 customers by lifetime paid order amount, wit
+  17/20 ✓   1672ms  llama-3.1-8b-instant            q=For each country, the count of active subscription
+  18/20 ✓   1621ms  llama-3.1-8b-instant            q=Customers who signed up in 2026 but have zero orde
+  19/20 ✓   1553ms  llama-3.1-8b-instant            q=For each plan, the median order amount (use percen
+  20/20 ✓   1641ms  llama-3.1-8b-instant            q=Which plan has the highest churn rate? Return one 
+
+=== apekey-speed ===
+   1/20 ✓•  1031ms  llama-3.1-8b-instant            q=How many customers do we have in total?
+   2/20 ✓•   909ms  llama-3.1-8b-instant            q=What's the total revenue from paid orders?
+   3/20 ✓•   924ms  llama-3.1-8b-instant            q=What's the average order amount across all complet
+   4/20 ✓•   896ms  llama-3.1-8b-instant            q=How many subscriptions are currently active (ended
+   5/20 ✓•   945ms  llama-3.1-8b-instant            q=How many distinct countries are our customers in?
+   6/20 ✓•   883ms  llama-3.1-8b-instant            q=Count customers per plan.
+   7/20 ✓•   913ms  llama-3.1-8b-instant            q=Sum total paid order amount by country.
+   8/20 ✓•   923ms  llama-3.1-8b-instant            q=Count active subscriptions per plan.
+   9/20 ✓•   894ms  llama-3.1-8b-instant            q=Count events by event_name.
+  10/20 ✓•   895ms  llama-3.1-8b-instant            q=Average MRR per plan among currently-active subscr
+  11/20 ✓•   943ms  llama-3.1-8b-instant            q=How many customers signed up in May 2026?
+  12/20 ✓•   922ms  llama-3.1-8b-instant            q=What was our MRR by plan as of June 1, 2026?
+  13/20 ?•   908ms  llama-3.1-8b-instant            q=How many orders were placed in the last 30 days (r
+  14/20 ?•   980ms  llama-3.1-8b-instant            q=Count events that occurred in June 2026.
+  15/20 ✓•   888ms  llama-3.1-8b-instant            q=Weekly active users in June 2026.
+  16/20 ✓•   901ms  llama-3.1-8b-instant            q=Top 5 customers by lifetime paid order amount, wit
+  17/20 ✓•   965ms  llama-3.1-8b-instant            q=For each country, the count of active subscription
+  18/20 ✓•  1020ms  llama-3.1-8b-instant            q=Customers who signed up in 2026 but have zero orde
+  19/20 ✓•  1008ms  llama-3.1-8b-instant            q=For each plan, the median order amount (use percen
+  20/20 ✓•   886ms  llama-3.1-8b-instant            q=Which plan has the highest churn rate? Return one 
+
+=== apekey-quality ===
+   1/20 ✓•  1054ms  llama-3.1-8b-instant            q=How many customers do we have in total?
+   2/20 ✓•   889ms  llama-3.1-8b-instant            q=What's the total revenue from paid orders?
+   3/20 ✓•   907ms  llama-3.1-8b-instant            q=What's the average order amount across all complet
+   4/20 ✓•   890ms  llama-3.1-8b-instant            q=How many subscriptions are currently active (ended
+   5/20 ✓•   893ms  llama-3.1-8b-instant            q=How many distinct countries are our customers in?
+   6/20 ✓•   912ms  llama-3.1-8b-instant            q=Count customers per plan.
+   7/20 ✓•   899ms  llama-3.1-8b-instant            q=Sum total paid order amount by country.
+   8/20 ✓•   890ms  llama-3.1-8b-instant            q=Count active subscriptions per plan.
+   9/20 ✓•   923ms  llama-3.1-8b-instant            q=Count events by event_name.
+  10/20 ✓•   920ms  llama-3.1-8b-instant            q=Average MRR per plan among currently-active subscr
+  11/20 ✓•   896ms  llama-3.1-8b-instant            q=How many customers signed up in May 2026?
+  12/20 ✓•   908ms  llama-3.1-8b-instant            q=What was our MRR by plan as of June 1, 2026?
+  13/20 ?•   903ms  llama-3.1-8b-instant            q=How many orders were placed in the last 30 days (r
+  14/20 ?•   888ms  llama-3.1-8b-instant            q=Count events that occurred in June 2026.
+  15/20 ✓•   903ms  llama-3.1-8b-instant            q=Weekly active users in June 2026.
+  16/20 ✓•   904ms  llama-3.1-8b-instant            q=Top 5 customers by lifetime paid order amount, wit
+  17/20 ✓•   910ms  llama-3.1-8b-instant            q=For each country, the count of active subscription
+  18/20 ✓•   890ms  llama-3.1-8b-instant            q=Customers who signed up in 2026 but have zero orde
+  19/20 ✓•   908ms  llama-3.1-8b-instant            q=For each plan, the median order amount (use percen
+  20/20 ✓•   898ms  llama-3.1-8b-instant            q=Which plan has the highest churn rate? Return one 
+
+# apekey.ai vs OpenAI benchmark · 2026-06-21
+
+- **Workload:** 20 NL→SQL questions on the dataask demo schema
+- **Quality dimension:** single judge prompt to gpt-4o-mini (0/1 per completion)
+- **Instrumentation:** every call wrapped by `@tracelens.traced`
+- **Fair-quality comparison:** baseline-gpt-4o-mini vs apekey-quality — open-model output sits closest to the frontier on the quality column
+- **Cache honesty:** apekey exact-match cache means deterministic prompts will hit. We report `cache_hit_rate` per condition AND a `cache-misses only` cost projection — the second number is what real varied workloads will see.
+
+## Aggregate per condition (all calls)
+
+| Condition | n | errs | p50 ms | p95 ms | tokens | self-reported cost | cache hit rate | quality pass rate |
+|---|---|---|---|---|---|---|---|---|
+| baseline-gpt-4o-mini | 20 | 0 | 909.2 | 1284.2 | 5,220 | — | 0% | 85% |
+| apekey-cost | 20 | 0 | 1605.8 | 63097.4 | 6,640 | — | 0% | 95% |
+| apekey-speed | 20 | 0 | 917.8 | 1020.7 | 6,640 | — | 100% | 90% |
+| apekey-quality | 20 | 0 | 903.0 | 930.0 | 6,640 | — | 100% | 90% |
+
+## Cache-miss projection — what a varied real workload will look like
+
+| Condition | cache-misses n | p50 ms | p95 ms | self-reported cost |
+|---|---|---|---|---|
+| baseline-gpt-4o-mini | 20 | 909.2 | 1284.2 | — |
+| apekey-cost | 20 | 1605.8 | 63097.4 | — |
+| apekey-speed | 0 | 0 | 0 | — |
+| apekey-quality | 0 | 0 | 0 | — |
+
+## Models + providers used per condition
+
+- **baseline-gpt-4o-mini** — gpt-4o-mini-2024-07-18
+- **apekey-cost** — llama-3.1-8b-instant
+- **apekey-speed** — llama-3.1-8b-instant
+- **apekey-quality** — llama-3.1-8b-instant
+
+→ raw results dumped to /tmp/apekey-benchmark-results-v2.json

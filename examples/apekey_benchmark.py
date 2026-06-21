@@ -165,10 +165,14 @@ class CallResult:
     prompt_tokens: int | None
     completion_tokens: int | None
     total_tokens: int | None
-    cost_usd_self_reported: float | None  # from apekey _optimization
-    model_used: str | None                  # from apekey _optimization
-    cache_hit: bool | None                  # from apekey _optimization
-    quality_pass: bool | None               # from fixed judge
+    cost_usd_self_reported: float | None  # from apekey _optimization (not used; apekey returns token counts not cost)
+    model_used: str | None                  # from _routing.mapped_model OR response.model
+    provider: str | None = None             # from _routing.provider
+    cache_hit: bool | None = None           # from _optimization.cached
+    optimization_raw: dict | None = None    # full _optimization dict for downstream
+    routing_raw: dict | None = None         # full _routing dict for downstream
+    tokens_saved: int | None = None         # from _optimization
+    quality_pass: bool | None = None        # from fixed judge
     error: str | None = None
 
 
@@ -220,20 +224,21 @@ def run_condition(
     condition: Condition,
     questions: list[str],
     judge_client: OpenAI,
+    cache_buster: str | None = None,
 ) -> list[CallResult]:
     print(f"\n=== {condition.name} ===")
     client = _make_client(condition)
     results: list[CallResult] = []
 
     @tracelens.traced(model=condition.name, capture_prompt=False, capture_completion=False)
-    def call(question: str) -> Any:
+    def call(user_message: str) -> Any:
         kwargs: dict[str, Any] = {
             "model": condition.model,
             "temperature": 0.0,
             "max_tokens": 500,
             "messages": [
                 {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": question},
+                {"role": "user", "content": user_message},
             ],
         }
         if condition.extra_body:
@@ -241,13 +246,26 @@ def run_condition(
         return client.chat.completions.create(**kwargs)
 
     for i, q in enumerate(questions, 1):
+        # Defeat exact-match cache via a per-call salt appended to the user message.
+        # Apekey's cache is exact-match on the full request; this guarantees cold
+        # serving on every call without changing the semantic meaning of the question.
+        # IMPORTANT: salt includes condition.name so apekey-speed / apekey-quality
+        # don't accidentally cache-hit on apekey-cost's responses (which would happen
+        # if the salt was shared across conditions).
+        user_message = q
+        if cache_buster:
+            user_message = f"{q} (run-id: {cache_buster}-{condition.name}-{i:02d})"
+
         t0 = time.perf_counter()
         sql = ""
         error: str | None = None
         prompt_tokens = completion_tokens = total_tokens = None
-        cost = model_used = cache_hit = None
+        cost = model_used = cache_hit = provider = None
+        opt_raw: dict | None = None
+        routing_raw: dict | None = None
+        tokens_saved: int | None = None
         try:
-            resp = call(q)
+            resp = call(user_message)
             latency_ms = (time.perf_counter() - t0) * 1000
             sql = (resp.choices[0].message.content or "").strip()
             usage = getattr(resp, "usage", None)
@@ -255,19 +273,24 @@ def run_condition(
                 prompt_tokens = getattr(usage, "prompt_tokens", None)
                 completion_tokens = getattr(usage, "completion_tokens", None)
                 total_tokens = getattr(usage, "total_tokens", None)
-            # apekey-specific metadata (best-effort extraction with
-            # defensive key fallbacks — the exact field names aren't documented
-            # publicly, so we cover the obvious variants).
             try:
                 raw = resp.model_dump(mode="json") if hasattr(resp, "model_dump") else {}
-                opt = raw.get("_optimization") or raw.get("optimization") or {}
-                cost = opt.get("cost_usd") or opt.get("cost")
-                model_used = opt.get("model") or opt.get("model_used") or opt.get("served_by")
-                cache_hit = opt.get("cache_hit")
-                if cache_hit is None:
-                    cache_hit = opt.get("cached")
-                if cache_hit is None:
-                    cache_hit = opt.get("from_cache")
+                # Always grab response.model — that's the served model
+                model_used = raw.get("model") or None
+                # _optimization holds prompt-optimization + cache status
+                opt = raw.get("_optimization") or {}
+                opt_raw = opt if opt else None
+                cache_hit = opt.get("cached") if opt else None
+                tokens_saved = opt.get("tokens_saved") if opt else None
+                # _routing holds the routing decision + provider
+                routing = raw.get("_routing") or {}
+                routing_raw = routing if routing else None
+                if routing:
+                    provider = routing.get("provider")
+                    # Prefer the explicit mapped_model from routing if present
+                    mapped = routing.get("mapped_model")
+                    if mapped:
+                        model_used = mapped
             except Exception:  # noqa: BLE001
                 pass
         except Exception as exc:  # noqa: BLE001
@@ -285,12 +308,17 @@ def run_condition(
             total_tokens=total_tokens,
             cost_usd_self_reported=cost,
             model_used=model_used,
+            provider=provider,
             cache_hit=cache_hit,
+            optimization_raw=opt_raw,
+            routing_raw=routing_raw,
+            tokens_saved=tokens_saved,
             quality_pass=quality_pass,
             error=error,
         ))
         marker = "✓" if quality_pass else ("✗" if error else "?")
-        print(f"  {i:2d}/{len(questions)} {marker} {round(latency_ms):>5}ms  q={q[:60]}")
+        cache_marker = "•" if cache_hit else " "
+        print(f"  {i:2d}/{len(questions)} {marker}{cache_marker} {round(latency_ms):>5}ms  {(model_used or '?')[:30]:<30}  q={q[:50]}")
         time.sleep(0.2)  # gentle rate-limit hedge
 
     return results
@@ -387,7 +415,7 @@ def markdown_report(summary: dict[str, Any], total_questions: int) -> str:
         )
     lines += [
         "",
-        "## Models used",
+        "## Models + providers used per condition",
         "",
     ]
     for cond, s in summary.items():
@@ -415,9 +443,16 @@ def main() -> None:
     print(f"# apekey-benchmark · {len(QUESTIONS)} questions × {len(CONDITIONS)} conditions")
     print(f"tracelens endpoint: {endpoint}")
 
+    # Cache-buster: defeat exact-match caching so EVERY call is served cold.
+    # Without this, the later-running conditions hit warm cache from earlier
+    # conditions because the cache key includes the prompt but not routing.prefer.
+    import uuid
+    cache_buster = os.environ.get("APEKEY_RUN_SALT") or uuid.uuid4().hex[:8]
+    print(f"cache buster (appended as run-id to each user message): {cache_buster}")
+
     all_results: list[CallResult] = []
     for cond in CONDITIONS:
-        all_results.extend(run_condition(cond, QUESTIONS, judge_client))
+        all_results.extend(run_condition(cond, QUESTIONS, judge_client, cache_buster=cache_buster))
 
     # Flush tracelens background threads before aggregation
     time.sleep(1.0)
