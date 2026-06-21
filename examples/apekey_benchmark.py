@@ -255,13 +255,19 @@ def run_condition(
                 prompt_tokens = getattr(usage, "prompt_tokens", None)
                 completion_tokens = getattr(usage, "completion_tokens", None)
                 total_tokens = getattr(usage, "total_tokens", None)
-            # apekey-specific metadata (best-effort extraction)
+            # apekey-specific metadata (best-effort extraction with
+            # defensive key fallbacks — the exact field names aren't documented
+            # publicly, so we cover the obvious variants).
             try:
                 raw = resp.model_dump(mode="json") if hasattr(resp, "model_dump") else {}
                 opt = raw.get("_optimization") or raw.get("optimization") or {}
                 cost = opt.get("cost_usd") or opt.get("cost")
-                model_used = opt.get("model") or opt.get("model_used")
+                model_used = opt.get("model") or opt.get("model_used") or opt.get("served_by")
                 cache_hit = opt.get("cache_hit")
+                if cache_hit is None:
+                    cache_hit = opt.get("cached")
+                if cache_hit is None:
+                    cache_hit = opt.get("from_cache")
             except Exception:  # noqa: BLE001
                 pass
         except Exception as exc:  # noqa: BLE001
@@ -310,10 +316,15 @@ def aggregate(results: list[CallResult]) -> dict[str, Any]:
     summary: dict[str, Any] = {}
     for cond, rows in by_cond.items():
         latencies = [r.latency_ms for r in rows if r.error is None]
+        # Cache-miss-only subset — this is the honest projection for a
+        # real, varied workload where prompts aren't deterministic repeats.
+        cache_miss_rows = [r for r in rows if r.cache_hit is not True]
+        cache_miss_latencies = [r.latency_ms for r in cache_miss_rows if r.error is None]
         prompt_t = sum(r.prompt_tokens or 0 for r in rows)
         completion_t = sum(r.completion_tokens or 0 for r in rows)
         total_t = sum(r.total_tokens or 0 for r in rows)
-        cost = sum(r.cost_usd_self_reported or 0.0 for r in rows)
+        cost_all = sum(r.cost_usd_self_reported or 0.0 for r in rows)
+        cost_miss = sum(r.cost_usd_self_reported or 0.0 for r in cache_miss_rows)
         errors = sum(1 for r in rows if r.error)
         quality_passes = sum(1 for r in rows if r.quality_pass)
         cache_hits = sum(1 for r in rows if r.cache_hit)
@@ -325,11 +336,15 @@ def aggregate(results: list[CallResult]) -> dict[str, Any]:
             "p95_ms": round(_p(latencies, 95), 1) if latencies else 0,
             "p99_ms": round(_p(latencies, 99), 1) if latencies else 0,
             "mean_ms": round(statistics.mean(latencies), 1) if latencies else 0,
+            "p50_ms_cache_misses_only": round(_p(cache_miss_latencies, 50), 1) if cache_miss_latencies else 0,
+            "p95_ms_cache_misses_only": round(_p(cache_miss_latencies, 95), 1) if cache_miss_latencies else 0,
             "prompt_tokens": prompt_t,
             "completion_tokens": completion_t,
             "total_tokens": total_t,
-            "self_reported_cost_usd": round(cost, 6) if cost else None,
+            "self_reported_cost_usd": round(cost_all, 6) if cost_all else None,
+            "self_reported_cost_usd_cache_misses_only": round(cost_miss, 6) if cost_miss else None,
             "cache_hits": cache_hits,
+            "cache_hit_rate": round(cache_hits / len(rows), 3) if rows else 0,
             "quality_pass_rate": round(quality_passes / len(rows), 3) if rows else 0,
             "models_used": models_used,
         }
@@ -343,20 +358,38 @@ def markdown_report(summary: dict[str, Any], total_questions: int) -> str:
         f"- **Workload:** {total_questions} NL→SQL questions on the dataask demo schema",
         "- **Quality dimension:** single judge prompt to gpt-4o-mini (0/1 per completion)",
         "- **Instrumentation:** every call wrapped by `@tracelens.traced`",
+        "- **Fair-quality comparison:** baseline-gpt-4o-mini vs apekey-quality — open-model output sits closest to the frontier on the quality column",
+        "- **Cache honesty:** apekey exact-match cache means deterministic prompts will hit. We report `cache_hit_rate` per condition AND a `cache-misses only` cost projection — the second number is what real varied workloads will see.",
         "",
-        "## Aggregate per condition",
+        "## Aggregate per condition (all calls)",
         "",
-        "| Condition | n | errs | p50 ms | p95 ms | tokens | self-reported cost | cache hits | quality pass rate |",
+        "| Condition | n | errs | p50 ms | p95 ms | tokens | self-reported cost | cache hit rate | quality pass rate |",
         "|---|---|---|---|---|---|---|---|---|",
     ]
     for cond, s in summary.items():
         cost_str = f"${s['self_reported_cost_usd']:.6f}" if s["self_reported_cost_usd"] else "—"
         lines.append(
-            f"| {cond} | {s['n']} | {s['errors']} | {s['p50_ms']} | {s['p95_ms']} | {s['total_tokens']:,} | {cost_str} | {s['cache_hits']} | {s['quality_pass_rate']:.0%} |"
+            f"| {cond} | {s['n']} | {s['errors']} | {s['p50_ms']} | {s['p95_ms']} | {s['total_tokens']:,} | {cost_str} | {s['cache_hit_rate']:.0%} | {s['quality_pass_rate']:.0%} |"
         )
-    lines.append("")
-    lines.append("## Models used")
-    lines.append("")
+    lines += [
+        "",
+        "## Cache-miss projection — what a varied real workload will look like",
+        "",
+        "| Condition | cache-misses n | p50 ms | p95 ms | self-reported cost |",
+        "|---|---|---|---|---|",
+    ]
+    for cond, s in summary.items():
+        miss_n = s["n"] - s["cache_hits"]
+        cost_miss = s.get("self_reported_cost_usd_cache_misses_only")
+        cost_str = f"${cost_miss:.6f}" if cost_miss else "—"
+        lines.append(
+            f"| {cond} | {miss_n} | {s['p50_ms_cache_misses_only']} | {s['p95_ms_cache_misses_only']} | {cost_str} |"
+        )
+    lines += [
+        "",
+        "## Models used",
+        "",
+    ]
     for cond, s in summary.items():
         models = ", ".join(s["models_used"]) if s["models_used"] else "—"
         lines.append(f"- **{cond}** — {models}")
