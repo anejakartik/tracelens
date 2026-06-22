@@ -1,0 +1,4572 @@
+{
+  "ran_at": "2026-06-22T00:14:17.664532+00:00",
+  "summary": {
+    "baseline-gpt-4o-mini": {
+      "n": 20,
+      "errors": 0,
+      "p50_ms": 804.7,
+      "p95_ms": 1276.8,
+      "p99_ms": 1783.2,
+      "mean_ms": 904.8,
+      "p50_ms_cache_misses_only": 804.7,
+      "p95_ms_cache_misses_only": 1276.8,
+      "prompt_tokens": 4724,
+      "completion_tokens": 656,
+      "total_tokens": 5380,
+      "self_reported_cost_usd": null,
+      "self_reported_cost_usd_cache_misses_only": null,
+      "cache_hits": 0,
+      "cache_hit_rate": 0.0,
+      "quality_pass_rate": 0.85,
+      "models_used": [
+        "gpt-4o-mini-2024-07-18"
+      ]
+    },
+    "apekey-cost": {
+      "n": 20,
+      "errors": 2,
+      "p50_ms": 1592.6,
+      "p95_ms": 63084.9,
+      "p99_ms": 63116.7,
+      "mean_ms": 11945.1,
+      "p50_ms_cache_misses_only": 1592.6,
+      "p95_ms_cache_misses_only": 63084.9,
+      "prompt_tokens": 5288,
+      "completion_tokens": 656,
+      "total_tokens": 5944,
+      "self_reported_cost_usd": null,
+      "self_reported_cost_usd_cache_misses_only": null,
+      "cache_hits": 0,
+      "cache_hit_rate": 0.0,
+      "quality_pass_rate": 0.85,
+      "models_used": [
+        "llama-3.1-8b-instant"
+      ]
+    },
+    "apekey-speed": {
+      "n": 20,
+      "errors": 20,
+      "p50_ms": 0,
+      "p95_ms": 0,
+      "p99_ms": 0,
+      "mean_ms": 0,
+      "p50_ms_cache_misses_only": 0,
+      "p95_ms_cache_misses_only": 0,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "self_reported_cost_usd": null,
+      "self_reported_cost_usd_cache_misses_only": null,
+      "cache_hits": 0,
+      "cache_hit_rate": 0.0,
+      "quality_pass_rate": 0.0,
+      "models_used": []
+    },
+    "apekey-quality": {
+      "n": 20,
+      "errors": 20,
+      "p50_ms": 0,
+      "p95_ms": 0,
+      "p99_ms": 0,
+      "mean_ms": 0,
+      "p50_ms_cache_misses_only": 0,
+      "p95_ms_cache_misses_only": 0,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "self_reported_cost_usd": null,
+      "self_reported_cost_usd_cache_misses_only": null,
+      "cache_hits": 0,
+      "cache_hit_rate": 0.0,
+      "quality_pass_rate": 0.0,
+      "models_used": []
+    }
+  },
+  "calls": [
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "How many customers do we have in total?",
+      "sql": "SELECT COUNT(*) AS total_customers FROM customers;",
+      "latency_ms": 1909.756,
+      "prompt_tokens": 234,
+      "completion_tokens": 10,
+      "total_tokens": 244,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "What's the total revenue from paid orders?",
+      "sql": "SELECT SUM(amount) AS total_revenue FROM orders WHERE status = 'paid';",
+      "latency_ms": 735.942,
+      "prompt_tokens": 233,
+      "completion_tokens": 16,
+      "total_tokens": 249,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "What's the average order amount across all completed orders?",
+      "sql": "SELECT AVG(amount) AS average_order_amount\nFROM orders\nWHERE status = 'completed';",
+      "latency_ms": 719.252,
+      "prompt_tokens": 235,
+      "completion_tokens": 18,
+      "total_tokens": 253,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "How many subscriptions are currently active (ended_at is null)?",
+      "sql": "SELECT COUNT(*) AS active_subscriptions \nFROM subscriptions \nWHERE ended_at IS NULL;",
+      "latency_ms": 800.668,
+      "prompt_tokens": 237,
+      "completion_tokens": 17,
+      "total_tokens": 254,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "How many distinct countries are our customers in?",
+      "sql": "SELECT COUNT(DISTINCT country) AS distinct_country_count FROM customers;",
+      "latency_ms": 638.325,
+      "prompt_tokens": 234,
+      "completion_tokens": 14,
+      "total_tokens": 248,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "Count customers per plan.",
+      "sql": "SELECT plan, COUNT(*) AS customer_count\nFROM customers\nGROUP BY plan;",
+      "latency_ms": 798.544,
+      "prompt_tokens": 230,
+      "completion_tokens": 16,
+      "total_tokens": 246,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "Sum total paid order amount by country.",
+      "sql": "SELECT country, SUM(amount) AS total_paid_amount\nFROM customers\nJOIN orders ON customers.id = orders.customer_id\nWHERE orders.status = 'paid'\nGROUP BY country;",
+      "latency_ms": 899.196,
+      "prompt_tokens": 233,
+      "completion_tokens": 35,
+      "total_tokens": 268,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "Count active subscriptions per plan.",
+      "sql": "SELECT plan, COUNT(*) AS active_subscriptions\nFROM subscriptions\nWHERE ended_at IS NULL\nGROUP BY plan;",
+      "latency_ms": 759.547,
+      "prompt_tokens": 231,
+      "completion_tokens": 23,
+      "total_tokens": 254,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "Count events by event_name.",
+      "sql": "SELECT event_name, COUNT(*) AS event_count\nFROM events\nGROUP BY event_name;",
+      "latency_ms": 523.998,
+      "prompt_tokens": 231,
+      "completion_tokens": 18,
+      "total_tokens": 249,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "Average MRR per plan among currently-active subscriptions.",
+      "sql": "SELECT plan, AVG(mrr) AS average_mrr\nFROM subscriptions\nWHERE ended_at IS NULL\nGROUP BY plan;",
+      "latency_ms": 887.473,
+      "prompt_tokens": 235,
+      "completion_tokens": 25,
+      "total_tokens": 260,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "How many customers signed up in May 2026?",
+      "sql": "SELECT COUNT(*) AS customer_count \nFROM customers \nWHERE signup_date >= '2026-05-01' AND signup_date < '2026-06-01';",
+      "latency_ms": 791.643,
+      "prompt_tokens": 236,
+      "completion_tokens": 34,
+      "total_tokens": 270,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "What was our MRR by plan as of June 1, 2026?",
+      "sql": "SELECT plan, SUM(mrr) AS total_mrr\nFROM subscriptions\nWHERE started_at <= '2026-06-01' AND (ended_at IS NULL OR ended_at > '2026-06-01')\nGROUP BY plan;",
+      "latency_ms": 820.115,
+      "prompt_tokens": 242,
+      "completion_tokens": 49,
+      "total_tokens": 291,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "How many orders were placed in the last 30 days (relative to 2026-06-17)?",
+      "sql": "SELECT COUNT(*) AS order_count\nFROM orders\nWHERE created_at >= TIMESTAMP '2026-06-17' - INTERVAL '30 days';",
+      "latency_ms": 667.122,
+      "prompt_tokens": 247,
+      "completion_tokens": 31,
+      "total_tokens": 278,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "Count events that occurred in June 2026.",
+      "sql": "SELECT COUNT(*) AS event_count\nFROM events\nWHERE occurred_at >= '2026-06-01' AND occurred_at < '2026-07-01';",
+      "latency_ms": 714.499,
+      "prompt_tokens": 235,
+      "completion_tokens": 34,
+      "total_tokens": 269,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "Weekly active users in June 2026.",
+      "sql": "SELECT COUNT(DISTINCT customer_id) AS weekly_active_users\nFROM events\nWHERE occurred_at >= '2026-06-01' AND occurred_at < '2026-07-01'\nGROUP BY date_trunc('week', occurred_at);",
+      "latency_ms": 1023.903,
+      "prompt_tokens": 234,
+      "completion_tokens": 51,
+      "total_tokens": 285,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "Top 5 customers by lifetime paid order amount, with their plan.",
+      "sql": "SELECT c.id, c.name, c.plan, SUM(o.amount) AS total_paid_amount\nFROM customers c\nJOIN orders o ON c.id = o.customer_id\nWHERE o.status = 'paid'\nGROUP BY c.id, c.name, c.plan\nORDER BY total_paid_amount DESC\nLIMIT 5;",
+      "latency_ms": 1243.5,
+      "prompt_tokens": 239,
+      "completion_tokens": 63,
+      "total_tokens": 302,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "For each country, the count of active subscriptions and total MRR.",
+      "sql": "SELECT c.country, \n       COUNT(s.id) AS active_subscriptions, \n       SUM(s.mrr) AS total_mrr\nFROM customers c\nJOIN subscriptions s ON c.id = s.customer_id\nWHERE s.ended_at IS NULL\nGROUP BY c.country;",
+      "latency_ms": 1111.965,
+      "prompt_tokens": 239,
+      "completion_tokens": 55,
+      "total_tokens": 294,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "Customers who signed up in 2026 but have zero orders.",
+      "sql": "SELECT c.id, c.name \nFROM customers c \nLEFT JOIN orders o ON c.id = o.customer_id \nWHERE c.signup_date >= '2026-01-01' AND c.signup_date < '2027-01-01' AND o.id IS NULL;",
+      "latency_ms": 1199.712,
+      "prompt_tokens": 238,
+      "completion_tokens": 55,
+      "total_tokens": 293,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "For each plan, the median order amount (use percentile_cont if available).",
+      "sql": "SELECT plan, \n       percentile_cont(0.5) WITHIN GROUP (ORDER BY amount) AS median_order_amount\nFROM customers c\nJOIN orders o ON c.id = o.customer_id\nGROUP BY plan;",
+      "latency_ms": 808.741,
+      "prompt_tokens": 240,
+      "completion_tokens": 44,
+      "total_tokens": 284,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "baseline-gpt-4o-mini",
+      "question": "Which plan has the highest churn rate? Return one row with the plan name.",
+      "sql": "SELECT plan, \n       COUNT(CASE WHEN ended_at IS NOT NULL THEN 1 END) * 1.0 / COUNT(*) AS churn_rate\nFROM subscriptions\nGROUP BY plan\nORDER BY churn_rate DESC\nLIMIT 1;",
+      "latency_ms": 1042.998,
+      "prompt_tokens": 241,
+      "completion_tokens": 48,
+      "total_tokens": 289,
+      "cost_usd_self_reported": null,
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "How many customers do we have in total?",
+      "sql": "SELECT COUNT(*) FROM customers",
+      "latency_ms": 3582.599,
+      "prompt_tokens": 292,
+      "completion_tokens": 6,
+      "total_tokens": 298,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 241,
+        "optimized_tokens": 235,
+        "tokens_saved": 6
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.7799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 46.48915750127055,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=32.3(chars=73)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1110)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1110,
+            "lastMessageChars": 73,
+            "hasCodeBlock": false,
+            "hasNewlines": false,
+            "isQuestion": true,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976625,
+              "expectedCostUsd": 4.4300000000000006e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05537500000000001,
+                "costRaw": 0.044300000000000006,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.976625,
+              "expectedCostUsd": 4.4300000000000006e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05537500000000001,
+                "costRaw": 0.044300000000000006,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.76225,
+              "expectedCostUsd": 6.58e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.08224999999999999,
+                "costRaw": 0.0658,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.6007500000000014,
+              "expectedCostUsd": 0.0005922,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.74025,
+                "costRaw": 0.5922,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.976625,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976625,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.6007500000000014,
+              "whyFallback": "score_higher_than_winner(0.33x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.76225,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 6,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "What's the total revenue from paid orders?",
+      "sql": "SELECT SUM(amount) FROM orders WHERE status = 'paid'",
+      "latency_ms": 1599.381,
+      "prompt_tokens": 292,
+      "completion_tokens": 13,
+      "total_tokens": 305,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 241,
+        "optimized_tokens": 235,
+        "tokens_saved": 6
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.9799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql",
+              "code_pattern_match",
+              "code_block_detected"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 52.78729001161349,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=32.6(chars=76)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1113)",
+              "structure_score=6.0(newlines=false,code=true)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1113,
+            "lastMessageChars": 76,
+            "hasCodeBlock": true,
+            "hasNewlines": false,
+            "isQuestion": true,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.9765625,
+              "expectedCostUsd": 4.435000000000001e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05543750000000001,
+                "costRaw": 0.04435000000000001,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.9765625,
+              "expectedCostUsd": 4.435000000000001e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05543750000000001,
+                "costRaw": 0.04435000000000001,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.762375,
+              "expectedCostUsd": 6.59e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.082375,
+                "costRaw": 0.0659,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.5996250000000014,
+              "expectedCostUsd": 0.0005931,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.7413750000000001,
+                "costRaw": 0.5931000000000001,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.9765625,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.9765625,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.5996250000000014,
+              "whyFallback": "score_higher_than_winner(0.33x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.762375,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 6,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "What's the average order amount across all completed orders?",
+      "sql": "SELECT AVG(amount) FROM orders WHERE status = 'completed'",
+      "latency_ms": 1557.949,
+      "prompt_tokens": 294,
+      "completion_tokens": 13,
+      "total_tokens": 307,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 246,
+        "optimized_tokens": 240,
+        "tokens_saved": 6
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.7799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 48.36324916332093,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=34.2(chars=94)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1131)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1131,
+            "lastMessageChars": 94,
+            "hasCodeBlock": false,
+            "hasNewlines": false,
+            "isQuestion": true,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976312500000001,
+              "expectedCostUsd": 4.4550000000000005e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05568750000000001,
+                "costRaw": 0.044550000000000006,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.976312500000001,
+              "expectedCostUsd": 4.4550000000000005e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05568750000000001,
+                "costRaw": 0.044550000000000006,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.762875,
+              "expectedCostUsd": 6.63e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.082875,
+                "costRaw": 0.0663,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.5951250000000012,
+              "expectedCostUsd": 0.0005966999999999999,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.7458749999999998,
+                "costRaw": 0.5966999999999999,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.976312500000001,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976312500000001,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.5951250000000012,
+              "whyFallback": "score_higher_than_winner(0.33x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.762875,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 6,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "How many subscriptions are currently active (ended_at is null)?",
+      "sql": "SELECT COUNT(*) \nFROM subscriptions \nWHERE ended_at IS NULL",
+      "latency_ms": 1639.82,
+      "prompt_tokens": 295,
+      "completion_tokens": 13,
+      "total_tokens": 308,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 247,
+        "optimized_tokens": 241,
+        "tokens_saved": 6
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.7799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 48.59649118939909,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=34.4(chars=97)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1134)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1134,
+            "lastMessageChars": 97,
+            "hasCodeBlock": false,
+            "hasNewlines": false,
+            "isQuestion": true,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.97625,
+              "expectedCostUsd": 4.46e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05575,
+                "costRaw": 0.0446,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.97625,
+              "expectedCostUsd": 4.46e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05575,
+                "costRaw": 0.0446,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.763,
+              "expectedCostUsd": 6.64e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.083,
+                "costRaw": 0.0664,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.594000000000001,
+              "expectedCostUsd": 0.0005976,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.747,
+                "costRaw": 0.5976,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.97625,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.97625,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.594000000000001,
+              "whyFallback": "score_higher_than_winner(0.33x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.763,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 6,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "How many distinct countries are our customers in?",
+      "sql": "SELECT COUNT(DISTINCT country) FROM customers",
+      "latency_ms": 1527.229,
+      "prompt_tokens": 292,
+      "completion_tokens": 10,
+      "total_tokens": 302,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 243,
+        "optimized_tokens": 237,
+        "tokens_saved": 6
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.7799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 47.44005059844956,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=33.2(chars=83)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1120)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1120,
+            "lastMessageChars": 83,
+            "hasCodeBlock": false,
+            "hasNewlines": false,
+            "isQuestion": true,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.9765,
+              "expectedCostUsd": 4.440000000000001e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05550000000000001,
+                "costRaw": 0.04440000000000001,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.9765,
+              "expectedCostUsd": 4.440000000000001e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05550000000000001,
+                "costRaw": 0.04440000000000001,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.7625,
+              "expectedCostUsd": 6.6e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.0825,
+                "costRaw": 0.066,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.5985000000000014,
+              "expectedCostUsd": 0.000594,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.7424999999999999,
+                "costRaw": 0.594,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.9765,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.9765,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.5985000000000014,
+              "whyFallback": "score_higher_than_winner(0.33x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.7625,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 6,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "Count customers per plan.",
+      "sql": "SELECT plan, COUNT(*) FROM customers GROUP BY plan",
+      "latency_ms": 63077.886,
+      "prompt_tokens": 288,
+      "completion_tokens": 11,
+      "total_tokens": 299,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 237,
+        "optimized_tokens": 231,
+        "tokens_saved": 6
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.7799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 44.9158310971643,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=30.7(chars=59)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1096)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1096,
+            "lastMessageChars": 59,
+            "hasCodeBlock": false,
+            "hasNewlines": false,
+            "isQuestion": false,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976875,
+              "expectedCostUsd": 4.41e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.055125,
+                "costRaw": 0.0441,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.976875,
+              "expectedCostUsd": 4.41e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.055125,
+                "costRaw": 0.0441,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.76175,
+              "expectedCostUsd": 6.54e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.08175,
+                "costRaw": 0.0654,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.6052500000000007,
+              "expectedCostUsd": 0.0005886000000000001,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.7357500000000001,
+                "costRaw": 0.5886000000000001,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.976875,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976875,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.6052500000000007,
+              "whyFallback": "score_higher_than_winner(0.33x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.76175,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 6,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "Sum total paid order amount by country.",
+      "sql": "SELECT \n  c.country, \n  SUM(o.amount) AS total_paid_amount\nFROM \n  customers c\n  JOIN orders o ON c.id = o.customer_id\nGROUP BY \n  c.country",
+      "latency_ms": 1533.186,
+      "prompt_tokens": 291,
+      "completion_tokens": 42,
+      "total_tokens": 333,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 241,
+        "optimized_tokens": 235,
+        "tokens_saved": 6
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.7799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 46.48915750127055,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=32.3(chars=73)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1110)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1110,
+            "lastMessageChars": 73,
+            "hasCodeBlock": false,
+            "hasNewlines": false,
+            "isQuestion": false,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976625,
+              "expectedCostUsd": 4.4300000000000006e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05537500000000001,
+                "costRaw": 0.044300000000000006,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.976625,
+              "expectedCostUsd": 4.4300000000000006e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05537500000000001,
+                "costRaw": 0.044300000000000006,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.76225,
+              "expectedCostUsd": 6.58e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.08224999999999999,
+                "costRaw": 0.0658,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.6007500000000014,
+              "expectedCostUsd": 0.0005922,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.74025,
+                "costRaw": 0.5922,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.976625,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976625,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.6007500000000014,
+              "whyFallback": "score_higher_than_winner(0.33x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.76225,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 6,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "Count active subscriptions per plan.",
+      "sql": "SELECT plan, COUNT(*) AS active_subscriptions\nFROM subscriptions\nWHERE ended_at IS NULL\nGROUP BY plan",
+      "latency_ms": 1604.417,
+      "prompt_tokens": 289,
+      "completion_tokens": 23,
+      "total_tokens": 312,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 240,
+        "optimized_tokens": 234,
+        "tokens_saved": 6
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.7799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 46.17868502142435,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=32.0(chars=70)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1107)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1107,
+            "lastMessageChars": 70,
+            "hasCodeBlock": false,
+            "hasNewlines": false,
+            "isQuestion": false,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976687500000001,
+              "expectedCostUsd": 4.4250000000000005e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05531250000000001,
+                "costRaw": 0.044250000000000005,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.976687500000001,
+              "expectedCostUsd": 4.4250000000000005e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05531250000000001,
+                "costRaw": 0.044250000000000005,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.762125,
+              "expectedCostUsd": 6.57e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.08212499999999999,
+                "costRaw": 0.0657,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.6018750000000015,
+              "expectedCostUsd": 0.0005913,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.739125,
+                "costRaw": 0.5913,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.976687500000001,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976687500000001,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.6018750000000015,
+              "whyFallback": "score_higher_than_winner(0.33x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.762125,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 6,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "Count events by event_name.",
+      "sql": "SELECT event_name, COUNT(*) FROM events GROUP BY event_name",
+      "latency_ms": 1549.108,
+      "prompt_tokens": 289,
+      "completion_tokens": 13,
+      "total_tokens": 302,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 238,
+        "optimized_tokens": 232,
+        "tokens_saved": 6
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.7799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 45.161820814011755,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=31.0(chars=61)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1098)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1098,
+            "lastMessageChars": 61,
+            "hasCodeBlock": false,
+            "hasNewlines": false,
+            "isQuestion": false,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.9768125,
+              "expectedCostUsd": 4.415e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.0551875,
+                "costRaw": 0.04415,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.9768125,
+              "expectedCostUsd": 4.415e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.0551875,
+                "costRaw": 0.04415,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.761875,
+              "expectedCostUsd": 6.55e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.081875,
+                "costRaw": 0.0655,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.6041250000000016,
+              "expectedCostUsd": 0.0005895,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.736875,
+                "costRaw": 0.5894999999999999,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.9768125,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.9768125,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.6041250000000016,
+              "whyFallback": "score_higher_than_winner(0.33x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.761875,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 6,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "Average MRR per plan among currently-active subscriptions.",
+      "sql": "WITH active_subscriptions AS (\n  SELECT plan, AVG(mrr) AS avg_mrr\n  FROM subscriptions\n  WHERE ended_at IS NULL\n  GROUP BY plan\n)\nSELECT plan, avg_mrr\nFROM active_subscriptions",
+      "latency_ms": 1563.876,
+      "prompt_tokens": 293,
+      "completion_tokens": 48,
+      "total_tokens": 341,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 245,
+        "optimized_tokens": 239,
+        "tokens_saved": 6
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.7799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 48.20362581776177,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=34.0(chars=92)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1129)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1129,
+            "lastMessageChars": 92,
+            "hasCodeBlock": false,
+            "hasNewlines": false,
+            "isQuestion": false,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976312500000001,
+              "expectedCostUsd": 4.4550000000000005e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05568750000000001,
+                "costRaw": 0.044550000000000006,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.976312500000001,
+              "expectedCostUsd": 4.4550000000000005e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05568750000000001,
+                "costRaw": 0.044550000000000006,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.762875,
+              "expectedCostUsd": 6.63e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.082875,
+                "costRaw": 0.0663,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.5951250000000012,
+              "expectedCostUsd": 0.0005966999999999999,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.7458749999999998,
+                "costRaw": 0.5966999999999999,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.976312500000001,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976312500000001,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.5951250000000012,
+              "whyFallback": "score_higher_than_winner(0.33x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.762875,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 6,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "How many customers signed up in May 2026?",
+      "sql": "SELECT COUNT(*) \nFROM customers \nWHERE signup_date >= date_trunc('month', '2026-05-01') \nAND signup_date < date_trunc('month', '2026-06-01');",
+      "latency_ms": 63124.651,
+      "prompt_tokens": 294,
+      "completion_tokens": 45,
+      "total_tokens": 339,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 241,
+        "optimized_tokens": 235,
+        "tokens_saved": 6
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.7799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 46.689223069906646,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=32.5(chars=75)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1112)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1112,
+            "lastMessageChars": 75,
+            "hasCodeBlock": false,
+            "hasNewlines": false,
+            "isQuestion": true,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976625,
+              "expectedCostUsd": 4.4300000000000006e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05537500000000001,
+                "costRaw": 0.044300000000000006,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.976625,
+              "expectedCostUsd": 4.4300000000000006e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05537500000000001,
+                "costRaw": 0.044300000000000006,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.76225,
+              "expectedCostUsd": 6.58e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.08224999999999999,
+                "costRaw": 0.0658,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.6007500000000014,
+              "expectedCostUsd": 0.0005922,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.74025,
+                "costRaw": 0.5922,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.976625,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976625,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.6007500000000014,
+              "whyFallback": "score_higher_than_winner(0.33x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.76225,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 6,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "What was our MRR by plan as of June 1, 2026?",
+      "sql": "WITH plan_mrr AS (\n  SELECT \n    s.plan,\n    SUM(s.mrr) AS mrr\n  FROM \n    subscriptions s\n  WHERE \n    s.started_at <= '2026-06-01' AND\n    s.ended_at IS NULL\n  GROUP BY \n    s.plan\n)\nSELECT \n  plan,\n  mrr\nFROM \n  plan_mrr",
+      "latency_ms": 1585.804,
+      "prompt_tokens": 300,
+      "completion_tokens": 81,
+      "total_tokens": 381,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 242,
+        "optimized_tokens": 236,
+        "tokens_saved": 6
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.7799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 46.97965989052094,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=32.8(chars=78)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1115)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1115,
+            "lastMessageChars": 78,
+            "hasCodeBlock": false,
+            "hasNewlines": false,
+            "isQuestion": true,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.9765625,
+              "expectedCostUsd": 4.435000000000001e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05543750000000001,
+                "costRaw": 0.04435000000000001,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.9765625,
+              "expectedCostUsd": 4.435000000000001e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05543750000000001,
+                "costRaw": 0.04435000000000001,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.762375,
+              "expectedCostUsd": 6.59e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.082375,
+                "costRaw": 0.0659,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.5996250000000014,
+              "expectedCostUsd": 0.0005931,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.7413750000000001,
+                "costRaw": 0.5931000000000001,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.9765625,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.9765625,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.5996250000000014,
+              "whyFallback": "score_higher_than_winner(0.33x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.762375,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 6,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "How many orders were placed in the last 30 days (relative to 2026-06-17)?",
+      "sql": "SELECT COUNT(*) \nFROM orders \nWHERE created_at >= date_trunc('day', '2026-06-17') + INTERVAL '30 days'",
+      "latency_ms": 1527.093,
+      "prompt_tokens": 304,
+      "completion_tokens": 32,
+      "total_tokens": 336,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 249,
+        "optimized_tokens": 242,
+        "tokens_saved": 7
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.7799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 49.11407669186384,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=34.9(chars=104)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1141)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1141,
+            "lastMessageChars": 104,
+            "hasCodeBlock": false,
+            "hasNewlines": false,
+            "isQuestion": true,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976125000000001,
+              "expectedCostUsd": 4.47e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05587500000000001,
+                "costRaw": 0.044700000000000004,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.976125000000001,
+              "expectedCostUsd": 4.47e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05587500000000001,
+                "costRaw": 0.044700000000000004,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.76325,
+              "expectedCostUsd": 6.66e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.08325,
+                "costRaw": 0.0666,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.591750000000001,
+              "expectedCostUsd": 0.0005993999999999999,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.74925,
+                "costRaw": 0.5993999999999999,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.976125000000001,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976125000000001,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.591750000000001,
+              "whyFallback": "score_higher_than_winner(0.32x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.76325,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 7,
+      "quality_pass": false,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "Count events that occurred in June 2026.",
+      "sql": "SELECT COUNT(*) \nFROM events \nWHERE EXTRACT(MONTH FROM occurred_at) = 6 \nAND EXTRACT(YEAR FROM occurred_at) = 2026",
+      "latency_ms": 1558.381,
+      "prompt_tokens": 293,
+      "completion_tokens": 35,
+      "total_tokens": 328,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 241,
+        "optimized_tokens": 235,
+        "tokens_saved": 6
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.7799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 46.589857190578584,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=32.4(chars=74)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1111)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1111,
+            "lastMessageChars": 74,
+            "hasCodeBlock": false,
+            "hasNewlines": false,
+            "isQuestion": false,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976625,
+              "expectedCostUsd": 4.4300000000000006e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05537500000000001,
+                "costRaw": 0.044300000000000006,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.976625,
+              "expectedCostUsd": 4.4300000000000006e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05537500000000001,
+                "costRaw": 0.044300000000000006,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.76225,
+              "expectedCostUsd": 6.58e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.08224999999999999,
+                "costRaw": 0.0658,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.6007500000000014,
+              "expectedCostUsd": 0.0005922,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.74025,
+                "costRaw": 0.5922,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.976625,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.976625,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.6007500000000014,
+              "whyFallback": "score_higher_than_winner(0.33x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.76225,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 6,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "Weekly active users in June 2026.",
+      "sql": "WITH weekly_active AS (\n  SELECT customer_id\n  FROM events\n  WHERE event_name = 'login' AND occurred_at >= '2026-06-01' AND occurred_at < '2026-07-01'\n  GROUP BY customer_id\n  HAVING COUNT(*) >= 4\n)\nSELECT COUNT(*) FROM weekly_active",
+      "latency_ms": 1703.513,
+      "prompt_tokens": 292,
+      "completion_tokens": 69,
+      "total_tokens": 361,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 239,
+        "optimized_tokens": 233,
+        "tokens_saved": 6
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.7799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 45.85480677450177,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=31.7(chars=67)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1104)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1104,
+            "lastMessageChars": 67,
+            "hasCodeBlock": false,
+            "hasNewlines": false,
+            "isQuestion": false,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.97675,
+              "expectedCostUsd": 4.4200000000000004e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05525000000000001,
+                "costRaw": 0.0442,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.97675,
+              "expectedCostUsd": 4.4200000000000004e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05525000000000001,
+                "costRaw": 0.0442,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.762,
+              "expectedCostUsd": 6.560000000000001e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.082,
+                "costRaw": 0.0656,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.6030000000000015,
+              "expectedCostUsd": 0.0005904,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.738,
+                "costRaw": 0.5904,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.97675,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.97675,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.6030000000000015,
+              "whyFallback": "score_higher_than_winner(0.33x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.762,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 6,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "Top 5 customers by lifetime paid order amount, with their plan.",
+      "sql": "WITH customer_orders AS (\n  SELECT customer_id, SUM(amount) AS total_amount\n  FROM orders\n  GROUP BY customer_id\n)\nSELECT c.name, c.plan, co.total_amount\nFROM customers c\nJOIN customer_orders co ON c.id = co.customer_id\nORDER BY co.total_amount DESC\nLIMIT 5;",
+      "latency_ms": 63063.416,
+      "prompt_tokens": 297,
+      "completion_tokens": 67,
+      "total_tokens": 364,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 247,
+        "optimized_tokens": 241,
+        "tokens_saved": 6
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.7799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 48.59649118939909,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=34.4(chars=97)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1134)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1134,
+            "lastMessageChars": 97,
+            "hasCodeBlock": false,
+            "hasNewlines": false,
+            "isQuestion": false,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.97625,
+              "expectedCostUsd": 4.46e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05575,
+                "costRaw": 0.0446,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.97625,
+              "expectedCostUsd": 4.46e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.05575,
+                "costRaw": 0.0446,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.763,
+              "expectedCostUsd": 6.64e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.083,
+                "costRaw": 0.0664,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.594000000000001,
+              "expectedCostUsd": 0.0005976,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.747,
+                "costRaw": 0.5976,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.97625,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.97625,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.594000000000001,
+              "whyFallback": "score_higher_than_winner(0.33x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.763,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 6,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "For each country, the count of active subscriptions and total MRR.",
+      "sql": "WITH active_subscriptions AS (\n  SELECT country, COUNT(*) AS active_count\n  FROM subscriptions\n  WHERE ended_at IS NULL\n  GROUP BY country\n),\ntotal_mrr AS (\n  SELECT country, SUM(mrr) AS total_mrr\n  FROM subscriptions\n  WHERE ended_at IS NULL\n  GROUP BY country\n)\nSELECT a.country, a.active_count, t.total_mrr\nFROM active_subscriptions a\nJOIN total_mrr t ON a.country = t.country;",
+      "latency_ms": 1651.985,
+      "prompt_tokens": 297,
+      "completion_tokens": 100,
+      "total_tokens": 397,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 247,
+        "optimized_tokens": 241,
+        "tokens_saved": 6
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.7799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 48.82269971030934,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=34.6(chars=100)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1137)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1137,
+            "lastMessageChars": 100,
+            "hasCodeBlock": false,
+            "hasNewlines": false,
+            "isQuestion": false,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.9761875,
+              "expectedCostUsd": 4.465e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.0558125,
+                "costRaw": 0.04465,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.9761875,
+              "expectedCostUsd": 4.465e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.0558125,
+                "costRaw": 0.04465,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.763125,
+              "expectedCostUsd": 6.65e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.083125,
+                "costRaw": 0.0665,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.592875000000001,
+              "expectedCostUsd": 0.0005985,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.7481249999999999,
+                "costRaw": 0.5984999999999999,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.9761875,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.9761875,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.592875000000001,
+              "whyFallback": "score_higher_than_winner(0.33x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.763125,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 6,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "Customers who signed up in 2026 but have zero orders.",
+      "sql": "SELECT id, name \nFROM customers \nWHERE signup_date >= date_trunc('year', CURRENT_DATE) \n  AND id NOT IN (SELECT customer_id FROM orders);",
+      "latency_ms": 1562.376,
+      "prompt_tokens": 296,
+      "completion_tokens": 35,
+      "total_tokens": 331,
+      "cost_usd_self_reported": null,
+      "model_used": "llama-3.1-8b-instant",
+      "provider": "groq",
+      "cache_hit": false,
+      "optimization_raw": {
+        "cached": false,
+        "original_tokens": 244,
+        "optimized_tokens": 238,
+        "tokens_saved": 6
+      },
+      "routing_raw": {
+        "provider": "groq",
+        "original_model": "auto",
+        "mapped_model": "llama-3.1-8b-instant",
+        "reason": "DecisionEngine(decision-v3.0-production): task=code complexity=medium prefer=cost \u2192 groq/llama-3.1-8b-instant",
+        "decision": {
+          "version": "decision-v3.0-production",
+          "task": {
+            "type": "code",
+            "confidence": 0.7799999999999999,
+            "evidence": [
+              "code_keywords=code,script,sql"
+            ],
+            "refined": {
+              "enabled": true,
+              "changed": false,
+              "details": [
+                "skipped_high_confidence"
+              ]
+            }
+          },
+          "complexity": {
+            "score": 47.78904441691395,
+            "bucket": "medium",
+            "evidence": [
+              "length_score=33.6(chars=87)",
+              "depth_score=2.2(messages=2)",
+              "context_size_score=12.0(totalChars=1124)",
+              "bucket=medium"
+            ]
+          },
+          "signals": {
+            "messageCount": 2,
+            "totalChars": 1124,
+            "lastMessageChars": 87,
+            "hasCodeBlock": false,
+            "hasNewlines": false,
+            "isQuestion": false,
+            "reasoningMarkers": [],
+            "userPreference": "cost",
+            "stream": false
+          },
+          "requiredQuality": {
+            "score": 7,
+            "base": 7,
+            "complexityBump": 0,
+            "notes": [
+              "base_quality=7(task=code)"
+            ]
+          },
+          "candidates": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.9764375,
+              "expectedCostUsd": 4.445000000000001e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.055562500000000015,
+                "costRaw": 0.04445000000000001,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "score_diff=0.0"
+            },
+            {
+              "provider": "groq",
+              "model": "llama-3.1-8b-instant",
+              "score": -7.9764375,
+              "expectedCostUsd": 4.445000000000001e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.055562500000000015,
+                "costRaw": 0.04445000000000001,
+                "latency": 1.0499999999999998,
+                "quality": 0.9179999999999999,
+                "providerBias": -10,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-10.0(task=code,scale=0.70)",
+                "margin=0.0_over_second_best"
+              ]
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.762625,
+              "expectedCostUsd": 6.610000000000001e-05,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.082625,
+                "costRaw": 0.0661,
+                "latency": 3.15,
+                "quality": 1.53,
+                "providerBias": 2,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "quality_near_miss(required=7,got=6,gap=1)",
+                "provider_bias=2.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency,quality_penalty,provider_bias"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.5973750000000013,
+              "expectedCostUsd": 0.0005949,
+              "eligibility": "eligible",
+              "breakdown": {
+                "cost": 0.743625,
+                "costRaw": 0.5949,
+                "latency": 4.199999999999999,
+                "quality": 0.45899999999999996,
+                "providerBias": -8,
+                "modelBonus": 0,
+                "invalidPenalty": 0,
+                "emergencyPenalty": 0
+              },
+              "notes": [
+                "provider_bias=-8.0(task=code,scale=0.70)"
+              ],
+              "whyLost": "higher_cost,higher_latency"
+            }
+          ],
+          "winner": {
+            "provider": "groq",
+            "model": "llama-3.1-8b-instant",
+            "score": -7.9764375,
+            "whyChosen": "preferred_provider_for_code"
+          },
+          "fallback": [
+            {
+              "provider": "groq",
+              "model": "llama-3.3-70b-versatile",
+              "score": -7.9764375,
+              "whyFallback": "score_higher_than_winner(1.00x)"
+            },
+            {
+              "provider": "fireworks",
+              "model": "accounts/fireworks/models/kimi-k2p5",
+              "score": -2.5973750000000013,
+              "whyFallback": "score_higher_than_winner(0.33x)"
+            },
+            {
+              "provider": "together",
+              "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+              "score": 6.762625,
+              "whyFallback": "score_higher_than_winner(-0.85x)"
+            }
+          ]
+        }
+      },
+      "tokens_saved": 6,
+      "quality_pass": true,
+      "error": null
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "For each plan, the median order amount (use percentile_cont if available).",
+      "sql": "",
+      "latency_ms": 4934.986,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-cost",
+      "question": "Which plan has the highest churn rate? Return one row with the plan name.",
+      "sql": "",
+      "latency_ms": 4795.823,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "How many customers do we have in total?",
+      "sql": "",
+      "latency_ms": 64305.675,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "What's the total revenue from paid orders?",
+      "sql": "",
+      "latency_ms": 4827.365,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "What's the average order amount across all completed orders?",
+      "sql": "",
+      "latency_ms": 64090.161,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "How many subscriptions are currently active (ended_at is null)?",
+      "sql": "",
+      "latency_ms": 4754.394,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "How many distinct countries are our customers in?",
+      "sql": "",
+      "latency_ms": 64163.333,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "Count customers per plan.",
+      "sql": "",
+      "latency_ms": 4715.518,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "Sum total paid order amount by country.",
+      "sql": "",
+      "latency_ms": 64103.774,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "Count active subscriptions per plan.",
+      "sql": "",
+      "latency_ms": 4919.579,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "Count events by event_name.",
+      "sql": "",
+      "latency_ms": 64118.468,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "Average MRR per plan among currently-active subscriptions.",
+      "sql": "",
+      "latency_ms": 5345.303,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "How many customers signed up in May 2026?",
+      "sql": "",
+      "latency_ms": 64174.718,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "What was our MRR by plan as of June 1, 2026?",
+      "sql": "",
+      "latency_ms": 4659.843,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "How many orders were placed in the last 30 days (relative to 2026-06-17)?",
+      "sql": "",
+      "latency_ms": 4791.05,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "Count events that occurred in June 2026.",
+      "sql": "",
+      "latency_ms": 64514.195,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "Weekly active users in June 2026.",
+      "sql": "",
+      "latency_ms": 4831.47,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "Top 5 customers by lifetime paid order amount, with their plan.",
+      "sql": "",
+      "latency_ms": 64585.536,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "For each country, the count of active subscriptions and total MRR.",
+      "sql": "",
+      "latency_ms": 4897.584,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "Customers who signed up in 2026 but have zero orders.",
+      "sql": "",
+      "latency_ms": 64519.089,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "For each plan, the median order amount (use percentile_cont if available).",
+      "sql": "",
+      "latency_ms": 4811.501,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-speed",
+      "question": "Which plan has the highest churn rate? Return one row with the plan name.",
+      "sql": "",
+      "latency_ms": 64774.277,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "How many customers do we have in total?",
+      "sql": "",
+      "latency_ms": 4755.177,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "What's the total revenue from paid orders?",
+      "sql": "",
+      "latency_ms": 64635.226,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "What's the average order amount across all completed orders?",
+      "sql": "",
+      "latency_ms": 4848.675,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "How many subscriptions are currently active (ended_at is null)?",
+      "sql": "",
+      "latency_ms": 64418.286,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "How many distinct countries are our customers in?",
+      "sql": "",
+      "latency_ms": 5249.407,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "Count customers per plan.",
+      "sql": "",
+      "latency_ms": 64038.772,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "Sum total paid order amount by country.",
+      "sql": "",
+      "latency_ms": 4687.517,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "Count active subscriptions per plan.",
+      "sql": "",
+      "latency_ms": 64037.014,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "Count events by event_name.",
+      "sql": "",
+      "latency_ms": 4858.288,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "Average MRR per plan among currently-active subscriptions.",
+      "sql": "",
+      "latency_ms": 63988.199,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "How many customers signed up in May 2026?",
+      "sql": "",
+      "latency_ms": 4821.492,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "What was our MRR by plan as of June 1, 2026?",
+      "sql": "",
+      "latency_ms": 64238.902,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "How many orders were placed in the last 30 days (relative to 2026-06-17)?",
+      "sql": "",
+      "latency_ms": 4567.43,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "Count events that occurred in June 2026.",
+      "sql": "",
+      "latency_ms": 64409.622,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "Weekly active users in June 2026.",
+      "sql": "",
+      "latency_ms": 4607.502,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "Top 5 customers by lifetime paid order amount, with their plan.",
+      "sql": "",
+      "latency_ms": 63905.702,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "For each country, the count of active subscriptions and total MRR.",
+      "sql": "",
+      "latency_ms": 4596.765,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "Customers who signed up in 2026 but have zero orders.",
+      "sql": "",
+      "latency_ms": 4920.972,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "For each plan, the median order amount (use percentile_cont if available).",
+      "sql": "",
+      "latency_ms": 63972.315,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    },
+    {
+      "condition": "apekey-quality",
+      "question": "Which plan has the highest churn rate? Return one row with the plan name.",
+      "sql": "",
+      "latency_ms": 4726.722,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cost_usd_self_reported": null,
+      "model_used": null,
+      "provider": null,
+      "cache_hit": null,
+      "optimization_raw": null,
+      "routing_raw": null,
+      "tokens_saved": null,
+      "quality_pass": false,
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Monthly token limit reached. Upgrade your plan for more tokens.', 'type': 'rate_limit_error', 'code': 'token_limit_exceeded'}}"
+    }
+  ]
+}
